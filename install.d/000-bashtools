@@ -1,0 +1,10 @@
+#!/bin/sh
+
+depends() {
+	echo "coreutils findutils bash-completion"
+}
+
+install() {
+	# link to bash_profile
+	ln -sf $BASE/dotfiles/.bashrc ~/.bash_profile
+}

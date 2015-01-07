@@ -1,0 +1,9 @@
+#!/bin/sh
+
+depends() {
+	echo "vim"
+}
+
+install() {
+	return
+}

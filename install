@@ -1,0 +1,78 @@
+#!/bin/sh
+
+info() { echo "\033[1;32m$1\033[0m"; }
+title() { echo "\033[1;34m$1\033[0m"; }
+warn() { echo "\033[1;31m$1\033[0m"; }
+
+FILTER="*-${1:-"*"}"
+
+pin() {
+	local pin=""
+	if [ ! -f $BASE/pins ]; then
+		warn "$BASE/pins missing"
+		return 1
+	fi
+
+	p=$(grep "$1" $BASE/pins | cut -d ' ' -f 2)
+
+	if [ -z "$p" ]; then
+		return 1
+	fi
+
+	echo $p
+	return 0
+}
+
+dependencies() {
+	local deps=""
+	title "Fetching dependencies"
+	title "---------------------"
+	for s in install.d/$FILTER; do
+		. $s
+		for r in $(depends); do
+			deps="$deps $r"
+		done;
+	done
+
+	deps=$(echo $deps | tr " " "\n" | sort | uniq | xargs)
+
+	if [ -z "$deps" ]; then
+		info "No dependencies found..."
+	else
+		info "Collected: '$deps', installing..."
+		brew install $deps
+	fi
+}
+
+BASE=$(greadlink -f $(dirname $0))
+cd $BASE
+
+if [ -z "$(ls install.d/$FILTER)" ]; then
+	echo "nothing to install"
+	exit 0
+fi
+
+dependencies
+
+if [ ! -d ~/bin ]; then
+	mkdir ~/bin
+fi
+
+for i in $BASE/bin/*; do
+	ln -s $i ~/bin/$(basename $i)
+done
+
+if [ ! -d $BASE/git ]; then
+	mkdir $BASE/git
+fi
+
+REPOS=$BASE/git
+
+title "Installing"
+
+for s in install.d/$FILTER; do
+	info "$s::install()"
+	. $s
+	install
+	cd $BASE
+done
