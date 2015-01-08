@@ -26,7 +26,6 @@ pin() {
 dependencies() {
 	local deps=""
 	title "Fetching dependencies"
-	title "---------------------"
 	for s in install.d/$FILTER; do
 		. $s
 		for r in $(depends); do
@@ -45,31 +44,20 @@ dependencies() {
 }
 
 BASE=$(greadlink -f $(dirname $0))
+REPOS=$BASE/git
 cd $BASE
 
-if [ -z "$(ls install.d/$FILTER)" ]; then
-	echo "nothing to install"
-	exit 0
-fi
-
-dependencies
-
-if [ ! -d ~/bin ]; then
-	mkdir ~/bin
-fi
+[ -z "$(gfind -wholename "./install.d/$FILTER")" ] && echo "nothing to install or $1 not found" && exit 0
+[ ! -d ~/bin ] && mkdir ~/bin
+[ ! -d $REPOS ] && mkdir $REPOS
 
 for i in $BASE/bin/*; do
-	ln -s $i ~/bin/$(basename $i)
+	ln -sf $i ~/bin/$(basename $i)
 done
 
-if [ ! -d $BASE/git ]; then
-	mkdir $BASE/git
-fi
 
-REPOS=$BASE/git
-
+dependencies
 title "Installing"
-
 for s in install.d/$FILTER; do
 	info "$s::install()"
 	. $s

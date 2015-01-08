@@ -1,0 +1,9 @@
+#!/bin/sh
+
+depends() {
+	echo "tmux tmux-mem-cpu-load"
+}
+
+install() {
+	return
+}
