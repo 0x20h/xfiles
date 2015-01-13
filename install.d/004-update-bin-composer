@@ -5,5 +5,5 @@ depends() {
 }
 
 install() {
-	$BASE/bin/composer self-update
+	$BASE_DIR/bin/composer self-update
 }

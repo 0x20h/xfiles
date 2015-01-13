@@ -8,12 +8,12 @@ FILTER="*-${1:-"*"}"
 
 pin() {
 	local pin=""
-	if [ ! -f $BASE/pins ]; then
-		warn "$BASE/pins missing"
+	if [ ! -f $BASE_DIR/pins ]; then
+		warn "$BASE_DIR/pins missing"
 		return 1
 	fi
 
-	p=$(grep "$1" $BASE/pins | cut -d ' ' -f 2)
+	p=$(grep "$1" $BASE_DIR/pins | cut -d ' ' -f 2)
 
 	if [ -z "$p" ]; then
 		return 1
@@ -43,15 +43,18 @@ dependencies() {
 	fi
 }
 
-BASE=$(greadlink -f $(dirname $0))
-REPOS=$BASE/git
-cd $BASE
+# DIRECTORIES
+BASE_DIR=$(greadlink -f $(dirname $0))
+REPOS_DIR=$BASE_DIR/git
+VIM_BUNDLE_DIR=$BASE_DIR/dotfiles/.vim/bundle
+
+cd $BASE_DIR
 
 [ -z "$(gfind -wholename "./install.d/$FILTER")" ] && echo "nothing to install or $1 not found" && exit 0
 [ ! -d ~/bin ] && mkdir ~/bin
-[ ! -d $REPOS ] && mkdir $REPOS
+[ ! -d $REPOS_DIR ] && mkdir $REPOS_DIR
 
-for i in $BASE/bin/*; do
+for i in $BASE_DIR/bin/*; do
 	ln -sf $i ~/bin/$(basename $i)
 done
 
@@ -62,5 +65,5 @@ for s in install.d/$FILTER; do
 	info "$s::install()"
 	. $s
 	install
-	cd $BASE
+	cd $BASE_DIR
 done
