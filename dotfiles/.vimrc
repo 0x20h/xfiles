@@ -20,7 +20,7 @@ set hlsearch incsearch noignorecase
 set number
 syn on
 set backspace=2
-set textwidth=80 colorcolumn=120
+set textwidth=120 colorcolumn=120
 set cursorline
 set foldenable foldlevel=1
 set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
@@ -65,3 +65,14 @@ let php_folding=1
 let php_htmlInStrings=1
 let php_sql_query=1
 let php_noShortTags=1
+
+" allow a project-wise vimrc to overwrite defaults
+if !exists("*LoadProjectSettings")
+	function LoadProjectSettings()
+		if (filereadable('./vimrc'))
+			:source ./vimrc
+		endif
+	endfunction
+endif
+
+autocmd BufReadPre * :call LoadProjectSettings()

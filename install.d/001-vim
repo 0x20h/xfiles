@@ -6,10 +6,20 @@ depends() {
 
 install() {
 	cd $VIM_BUNDLE_DIR
+	ln -sf $BASE_DIR/dotfiles/.vim ~/.vim
+
 	if [ ! -d nerdtree ]; then
 		git clone https://github.com/scrooloose/nerdtree.git
 	else
 		cd nerdtree
+		git pull origin master
+		cd ..
+	fi
+
+	if [ ! -d vim-fugitive ]; then
+		git clone git://github.com/tpope/vim-fugitive.git
+	else
+		cd vim-fugitive
 		git pull origin master
 		cd ..
 	fi
@@ -31,9 +41,21 @@ install() {
 	fi
 
 	if [ ! -d vim-rst-tables ]; then
+		info "need to install vim bridge..."
+		info "sudo easy_install vim-bridge..."
+		sudo easy_install vim-bridge
 		git clone git://github.com/nvie/vim-rst-tables.git
 	else
 		cd vim-rst-tables
+		git pull origin master
+		cd ..
+	fi
+
+	if [ ! -d vim-go ]; then
+		info "need to install vim-go..."
+		git clone https://github.com/fatih/vim-go.git
+	else
+		cd vim-go
 		git pull origin master
 		cd ..
 	fi

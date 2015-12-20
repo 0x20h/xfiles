@@ -1,6 +1,7 @@
 #!/bin/sh
 # PATHS
-export PATH=~/bin:$PATH
+export GOPATH=~/go
+export PATH=~/bin:$GOPATH/bin:$PATH
 # COLORS
 RED="\[\033[0;31m\]"
 YELLOW="\[\033[0;33m\]"
@@ -17,6 +18,15 @@ fi
 
 export CLICOLOR=YES
 alias ll="ls -lah"
+alias tailf="tail -f"
+
+# Docker setup
+eval $(docker-machine env default)
+alias ds="docker-machine start default"
+alias drm="docker rm"
+alias dps="docker ps"
+
+function de { docker exec -ti $1 "/bin/bash"; }
 
 # JUMP JUMP
 # http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html

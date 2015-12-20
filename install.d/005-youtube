@@ -1,0 +1,10 @@
+#!/bin/sh
+
+depends() {
+	echo ""
+}
+
+install() {
+	curl https://yt-dl.org/downloads/2015.12.18/youtube-dl -o ~/bin/youtube-dl
+	chmod u+x ~/bin/youtube-dl
+}

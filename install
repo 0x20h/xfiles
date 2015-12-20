@@ -39,7 +39,7 @@ dependencies() {
 		info "No dependencies found..."
 	else
 		info "Collected: '$deps', installing..."
-		brew install $deps
+		brew install $deps || brew upgrade $deps
 	fi
 }
 
@@ -57,6 +57,7 @@ cd $BASE_DIR
 for i in $BASE_DIR/bin/*; do
 	ln -sf $i ~/bin/$(basename $i)
 done
+
 
 
 dependencies
