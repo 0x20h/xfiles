@@ -1,0 +1,7 @@
+#!/bin/sh
+docker-machine create \
+	--driver virtualbox \
+	--virtualbox-cpu-count 2 \
+	--virtualbox-memory 2048 \
+	--engine-opt bip=172.17.42.1/24 \
+	default

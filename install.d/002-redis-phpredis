@@ -1,9 +1,0 @@
-#!/bin/sh
-
-depends() {
-	echo "php55-redis redis"
-}
-
-install() {
-	return
-}

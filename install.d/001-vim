@@ -1,12 +1,13 @@
 #!/bin/sh
 
 depends() {
-	echo "ctags vim hg"
+	echo "ctags vim"
 }
 
 install() {
 	cd $VIM_BUNDLE_DIR
 	ln -sf $BASE_DIR/dotfiles/.vim ~/.vim
+	ln -sf $BASE_DIR/dotfiles/.vimrc ~/.vimrc
 
 	if [ ! -d nerdtree ]; then
 		git clone https://github.com/scrooloose/nerdtree.git
@@ -21,22 +22,6 @@ install() {
 	else
 		cd vim-fugitive
 		git pull origin master
-		cd ..
-	fi
-
-	if [ ! -d  vim-fuzzyfinder ]; then
-		hg clone https://bitbucket.org/ns9tks/vim-fuzzyfinder
-	else
-		cd vim-fuzzyfinder
-		hg pull
-		cd ..
-	fi
-
-	if [ ! -d  vim-l9 ]; then
-		hg clone https://bitbucket.org/ns9tks/vim-l9
-	else
-		cd vim-l9
-		hg pull
 		cd ..
 	fi
 
