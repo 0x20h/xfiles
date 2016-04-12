@@ -3,7 +3,7 @@ IDENTITY_FILE="$HOME/.git-identities"
 
 if [ ! -f "$IDENTITY_FILE" ]; then
 	echo "Identity file missing: $IDENTITY_FILE"
-	echo "Format: Identifier|Name|Email"
+	echo "Format: Identifier|Name|Email|gpg-key"
 	echo "Usage: git-id <Identifier> - Set user.name, user.email, user.signingkey as specified for the identifier"
 	exit 1
 fi
