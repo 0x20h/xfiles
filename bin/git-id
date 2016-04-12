@@ -4,19 +4,20 @@ IDENTITY_FILE="$HOME/.git-identities"
 if [ ! -f "$IDENTITY_FILE" ]; then
 	echo "Identity file missing: $IDENTITY_FILE"
 	echo "Format: Identifier|Name|Email"
-	echo "Usage: git-id <Identifier> - Set user.name, user.email as specified for the identifier"
+	echo "Usage: git-id <Identifier> - Set user.name, user.email, user.signingkey as specified for the identifier"
 	exit 1
 fi
 
 # without args, just print ids
 if [ $# -eq 0 ]; then
-	awk -F '|' '{printf "%10s: %s <%s>\n", $1, $2, $3}' $IDENTITY_FILE
+	awk -F '|' '{printf "%10s: %s <%s>\n", $1, $2, $3, $4}' $IDENTITY_FILE
 	exit 0;
 fi
 
 LINE=$(grep -E "^$1\|" ~/.git-identities)
 NAME=$(echo $LINE | cut -d'|' -f2)
 EMAIL=$(echo $LINE | cut -d'|' -f3)
+KEY=$(echo $LINE | cut -d'|' -f4)
 
 if [ -z "$NAME" ]; then
 	echo id \"$1\" not found, exiting...
@@ -27,4 +28,6 @@ git config --unset-all user.name
 git config user.name "$NAME"
 git config --unset-all user.email
 git config user.email "$EMAIL"
+git config --unset-all user.signingkey
+git config user.signingkey "$KEY"
 git config -l | grep user
