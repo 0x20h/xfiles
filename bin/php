@@ -1,0 +1,2 @@
+#!/bin/sh
+docker run --rm -ti -p 8000:8000 -v $PWD:/project -w /project php:7 php $*
