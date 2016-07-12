@@ -26,6 +26,7 @@ set foldenable foldlevel=1
 set statusline=%F%m%r%h%w[%L][%{&ff}]%y[%p%%][%04l,%04v]
 set showmode
 set wildmenu
+set noexpandtab
 
 " colors
 colorscheme pablo
@@ -74,5 +75,10 @@ if !exists("*LoadProjectSettings")
 		endif
 	endfunction
 endif
+
+au FileType javascript set sw=2 ts=2 expandtab
+au FileType xml set sw=2 ts=2 expandtab
+au FileType json set sw=2 ts=2 expandtab
+au FileType yaml set sw=2 ts=2 expandtab
 
 autocmd BufReadPre * :call LoadProjectSettings()

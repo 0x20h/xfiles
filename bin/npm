@@ -1,0 +1,2 @@
+#!/bin/sh
+docker run -ti -v $PWD:/project -w /project node:5 npm $*

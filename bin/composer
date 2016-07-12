@@ -1,2 +1,2 @@
 #!/bin/sh
-docker run --rm -v $PWD:/p -w /p composer/composer:1.0.0 $*
+docker run --rm -v $PWD:/p -w /p 0x20h/composer $*

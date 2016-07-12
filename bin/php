@@ -1,2 +1,2 @@
 #!/bin/sh
-docker run --rm -t $DOCKER_OPTS -v $PWD:/project -w /project php:7 php $*
+docker run --rm -it $DOCKER_OPTS -v $PWD:/project -w /project php:7 php $*
