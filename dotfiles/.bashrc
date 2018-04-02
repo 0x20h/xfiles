@@ -20,14 +20,6 @@ export CLICOLOR=YES
 alias ll="ls -lah"
 alias tailf="tail -f"
 
-# Docker setup
-eval $(docker-machine env default)
-alias ds="docker-machine start default"
-alias drm="docker rm"
-alias dps="docker ps"
-
-function de { docker exec -ti $1 "/bin/bash"; }
-
 # JUMP JUMP
 # http://jeroenjanssens.com/2013/08/16/quickly-navigate-your-filesystem-from-the-command-line.html
 alias j="jump"
@@ -55,7 +47,7 @@ function m {
 
 _completemarks() {
   local curw=${COMP_WORDS[COMP_CWORD]}
-  local wordlist=$(gfind $MARKPATH -type l -printf "%f \n")
+  local wordlist=$(find $MARKPATH -type l -printf "%f \n")
   COMPREPLY=($(compgen -W '${wordlist[@]}' -- "$curw"))
   return 0
 }

@@ -7,4 +7,5 @@ depends() {
 install() {
 	# link to bash_profile
 	ln -sf $BASE_DIR/dotfiles/.bashrc ~/.bash_profile
+	ln -sf $BASE_DIR/dotfiles/.gitconfig ~/.gitconfig
 }

@@ -5,5 +5,5 @@ depends() {
 }
 
 install() {
-	return
+	ln -sf $BASE_DIR/dotfiles/.tmux.conf ~/.tmux.conf
 }

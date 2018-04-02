@@ -1,0 +1,2 @@
+#!/bin/sh
+docker run $DOCKER_OPTS -ti -v $PWD:/project -w /project node:8 sh -c "yarn $*"

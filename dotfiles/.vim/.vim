@@ -1,1 +1,1 @@
-/Users/jan.kohlhof/xfiles/dotfiles/.vim
+/Users/jan/xfiles/dotfiles/.vim

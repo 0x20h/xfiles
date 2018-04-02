@@ -1,2 +1,2 @@
 #!/bin/sh
-docker run $DOCKER_OPTS -ti -v $PWD:/project -w /project node:5 sh -c "node $*"
+docker run $DOCKER_OPTS -ti -v $PWD:/project -w /project node:8 sh -c "node $*"
